@@ -50,10 +50,17 @@ def process_data(
     else:
         y = np.array([])
 
-    X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1)
+    # Ensure that X contains the categorical columns
+    if categorical_features:
+        X_categorical = X[categorical_features].values
+    else:
+        X_categorical = np.empty((X.shape[0], 0))  # Empty 2D array if no categorical features
 
-    if training is True:
+    # Drop categorical features from X to get continuous features
+    X_continuous = X.drop(categorical_features, axis=1)
+
+    # Handle OneHotEncoder and LabelBinarizer for training and inference
+    if training:
         encoder = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
         lb = LabelBinarizer()
         X_categorical = encoder.fit_transform(X_categorical)
@@ -62,10 +69,10 @@ def process_data(
         X_categorical = encoder.transform(X_categorical)
         try:
             y = lb.transform(y.values).ravel()
-        # Catch the case where y is None because we're doing inference.
         except AttributeError:
             pass
 
+    # Concatenate continuous and categorical features
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb
 
