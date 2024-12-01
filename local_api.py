@@ -35,7 +35,7 @@ data = {
 r = requests.post(f"{url}/data/", json=data)
 
 # print the status code
- print("POST Status Code:", r.status_code)
+print("POST Status Code:", r.status_code)
 
 # Print the result
 print("POST Response:", r.json())
