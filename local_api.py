@@ -32,10 +32,17 @@ data = {
 }
 
 
-r = requests.post(f"{url}/data/", json=data)
+# TODO: send a POST using the data above
+r = requests.post("http://127.0.0.1:8000/data/", json=data)
 
-# print the status code
-print("POST Status Code:", r.status_code)
+# TODO: print the status code
+print(f"POST Status Code: {r.status_code}")
 
-# Print the result
-print("POST Response:", r.json())
+# TODO: print the result
+try:
+    print(f"Prediction Result: {r.json()['result']}")
+except requests.exceptions.JSONDecodeError:
+    print(f"Failed to decode JSON. Response content: {r.content}")
+except KeyError:
+    print(f"JSON Response: {r.json()}")
+# print(r.json())
