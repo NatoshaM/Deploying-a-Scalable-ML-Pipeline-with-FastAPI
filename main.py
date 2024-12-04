@@ -26,10 +26,14 @@ class Data(BaseModel):
     hours_per_week: int = Field(..., example=40, alias="hours-per-week")
     native_country: str = Field(..., example="United-States", alias="native-country")
 
-path = r"C:\Users\MINER5\Desktop\School\WGU\Machine Learning DevOps\Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
+#this code os.getcwd will direct path to current working directory
+project_path = os.getcwd()
+path = os.path.join(project_path,"model","encoder.pkl")
+
 encoder = load_model(path)
 
-path = r"C:\Users\MINER5\Desktop\School\WGU\Machine Learning DevOps\Deploying-a-Scalable-ML-Pipeline-with-FastAPI"
+path = os.path.join(project_path,"model","model.pkl")
+print(path)
 model = load_model(path)
 
 
