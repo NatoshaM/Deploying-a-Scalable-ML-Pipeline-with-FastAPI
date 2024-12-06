@@ -16,7 +16,7 @@ from ml.model import (
 project_path = "data"
 
 #Load cencus.csv data
-data_path = os.path.join(project_path, "data", "census.csv")
+data_path = os.path.join(project_path, "census.csv")
 print(data_path)
 data = pd.read_csv(data_path)
 
@@ -58,9 +58,9 @@ print("Training the model...")
 model = train_model(X_train, y_train)
 
 # save the model and the encoder
-model_path = os.path.join(project_path, "model", "model.pkl")
+model_path = os.path.join("model", "model.pkl")
 save_model(model, model_path)
-encoder_path = os.path.join(project_path, "model", "encoder.pkl")
+encoder_path = os.path.join("model", "encoder.pkl")
 save_model(encoder, encoder_path)
 
 # load the model
