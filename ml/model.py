@@ -20,7 +20,7 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    model = RandomForestClassifier(random_state=42)
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X_train, y_train)
     return model
 
@@ -79,8 +79,8 @@ def save_model(model, path):
     path : str
         Path to save pickle file.
     """
-    with open(path, "wb") as f:
-        pickle.dump(model, f)
+    with open(path, "wb") as file:
+        pickle.dump(model, file)
 
 
 def load_model(path):
@@ -92,8 +92,9 @@ def load_model(path):
     model
         Loaded machine learning model or encoder.
     """
-    with open(path, "rb") as f:
-        return pickle.load(f)
+    with open(path, "rb") as file:
+        model = pickle.load(file)
+        return model
 
 
 def performance_on_categorical_slice(data, column_name, slice_value, categorical_features, label, encoder, lb, model):
@@ -125,17 +126,16 @@ def performance_on_categorical_slice(data, column_name, slice_value, categorical
     recall : float
     fbeta : float
     """
-    # Filter data for the slice
-    sliced_data = data[data[column_name] == slice_value]
-
-    # Process the sliced data
+    # TODO: implement the function
     X_slice, y_slice, _, _ = process_data(
-        X=sliced_data,
+        data,
         categorical_features=categorical_features,
         label=label,
-        training=False,
         encoder=encoder,
-        lb=lb
+        lb=lb,
+        training=False,
+        column_name=column_name,
+        slice_value=slice_value,
     )
 
     # Make predictions

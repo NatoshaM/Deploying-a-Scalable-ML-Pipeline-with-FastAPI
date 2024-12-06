@@ -13,7 +13,7 @@ from ml.model import (
     train_model,
 )
 
-project_path = r"C:\Users\MINER5\Desktop\School\WGU\Machine Learning DevOps\Deploying-a-Scalable-ML-Pipeline-with-FastAPI" 
+project_path = "data"
 
 #Load cencus.csv data
 data_path = os.path.join(project_path, "data", "census.csv")
