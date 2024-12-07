@@ -16,24 +16,21 @@ from ml.model import (
     train_model,
 )
 
+
 # Test 1: Check if the model returns the correct type (RandomForestClassifier)
 def test_train_model():
-      """
+    """
     Test pipeline of training model
     """
     X = np.random.rand(20, 5)
     y = np.random.randint(2, size=20)
     model = train_model(X, y)
-    assert isinstance(model, BaseEstimator) and isinstance(
-        model, ClassifierMixin)
+    assert isinstance(model, BaseEstimator) and isinstance(model, ClassifierMixin)
 
 
-
-# TODO: implement the second test. Change the function name and input as needed
-
-# Test 2: Check if the compute_model_metrics function returns the expected values (precision, recall, fbeta)
+# Test 2: Check if the compute_model_metrics function returns the expected values
 def test_compute_model_metrics():
-   """
+    """
     Test compute_model_metrics
     """
     y_true, y_preds = [1, 1, 0], [0, 1, 1]
@@ -42,7 +39,8 @@ def test_compute_model_metrics():
     assert recall is not None
     assert fbeta is not None
 
-# Test 3: 
+
+# Test 3: Check inference function
 def test_inference():
     """
     Test inference of model
