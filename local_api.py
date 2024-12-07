@@ -4,16 +4,18 @@ import requests
 
 # TODO: send a GET using the URL http://127.0.0.1:8000
 url = "http://127.0.0.1:8000"
-r = requests.get(url)
 
-# Print the status code
-print("GET Status Code:", r.status_code)
+# Test GET request
+try:
+    r = requests.get(url)
+    print("GET Status Code:", r.status_code)
+    print("GET Response Message:", r.json())
+except requests.exceptions.JSONDecodeError:
+    print("Failed to decode JSON from GET response.")
+except Exception as e:
+    print(f"Error during GET request: {e}")
 
-# Print the welcome message
-print("GET Response Message:", r.json())
-
-
-
+# Define the payload for POST request
 data = {
     "age": 37,
     "workclass": "Private",
@@ -31,18 +33,16 @@ data = {
     "native-country": "United-States",
 }
 
-
-# TODO: send a POST using the data above
-r = requests.post("http://127.0.0.1:8000/data/", json=data)
-
-# TODO: print the status code
-print(f"POST Status Code: {r.status_code}")
-
-# TODO: print the result
+# Test POST request
 try:
-    print(f"Prediction Result: {r.json()['result']}")
+    r = requests.post(f"{url}/data/", json=data)
+    print(f"POST Status Code: {r.status_code}")
+    if r.status_code == 200:  # Check for successful status
+        response_json = r.json()
+        print(f"Prediction Result: {response_json.get('result', 'No result key in response')}")
+    else:
+        print(f"Error: Server returned status code {r.status_code}. Response content: {r.content}")
 except requests.exceptions.JSONDecodeError:
     print(f"Failed to decode JSON. Response content: {r.content}")
-except KeyError:
-    print(f"JSON Response: {r.json()}")
-# print(r.json())
+except Exception as e:
+    print(f"Error during POST request: {e}")
